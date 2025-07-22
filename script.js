@@ -162,7 +162,14 @@ class MealService {
         
         try {
             const formattedDate = selectedDate.replace(/-/g, '');
-            const url = `${this.baseUrl}/mealServiceDietInfo?KEY=${this.apiKey}&Type=json&ATPT_OFCDC_SC_CODE=${this.selectedSchool.ATPT_OFCDC_SC_CODE}&SD_SCHUL_CODE=${this.selectedSchool.SD_SCHUL_CODE}&MLSV_YMD=${formattedDate}&MMEAL_SC_CODE=${this.currentMealType}`;
+            const params = new URLSearchParams({
+                ATPT_OFCDC_SC_CODE: this.selectedSchool.ATPT_OFCDC_SC_CODE,
+                SD_SCHUL_CODE: this.selectedSchool.SD_SCHUL_CODE,
+                MLSV_YMD: formattedDate,
+                MMEAL_SC_CODE: this.currentMealType
+            });
+
+            const url = `/.netlify/functions/getMealData?${params.toString()}`;
             
             const response = await fetch(url);
             const data = await response.json();
