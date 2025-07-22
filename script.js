@@ -2,8 +2,6 @@
 
 class MealService {
     constructor() {
-        this.apiKey = 'f7de58f2a99e4ed8b2f5c3c122268a1a';
-        this.baseUrl = 'https://open.neis.go.kr/hub';
         this.selectedSchool = null;
         this.currentMealType = 2; // 기본값: 점심
         
@@ -66,7 +64,7 @@ class MealService {
         this.showLoading(true);
         
         try {
-            const url = `${this.baseUrl}/schoolInfo?KEY=${this.apiKey}&Type=json&SCHUL_NM=${encodeURIComponent(searchTerm)}`;
+            const url = `/.netlify/functions/searchSchools?SCHUL_NM=${encodeURIComponent(searchTerm)}`;
             const response = await fetch(url);
             const data = await response.json();
 
